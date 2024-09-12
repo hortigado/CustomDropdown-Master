@@ -290,9 +290,7 @@ class CustomDropdown<T> extends StatefulWidget {
           'Items list must contain at least one item.',
         ),
         assert(
-          initialItems == null ||
-              initialItems.isEmpty ||
-              initialItems.any((e) => items!.contains(e)),
+          initialItems == null || initialItems.isEmpty || initialItems.any((e) => items!.contains(e)),
           'Initial items must match with the items in the items list.',
         ),
         _searchType = null,
@@ -337,9 +335,7 @@ class CustomDropdown<T> extends StatefulWidget {
           'Items list must contain at least one item.',
         ),
         assert(
-          initialItems == null ||
-              initialItems.isEmpty ||
-              initialItems.any((e) => items!.contains(e)),
+          initialItems == null || initialItems.isEmpty || initialItems.any((e) => items!.contains(e)),
           'Initial items must match with the items in the items list.',
         ),
         _searchType = _SearchType.onListData,
@@ -431,12 +427,10 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
     return FormField<(T?, List<T>)>(
       initialValue: (selectedItemNotifier.value, selectedItemsNotifier.value),
       validator: (val) {
-        if (widget._dropdownType == _DropdownType.singleSelect &&
-            widget.validator != null) {
+        if (widget._dropdownType == _DropdownType.singleSelect && widget.validator != null) {
           return widget.validator!(val?.$1);
         }
-        if (widget._dropdownType == _DropdownType.multipleSelect &&
-            widget.listValidator != null) {
+        if (widget._dropdownType == _DropdownType.multipleSelect && widget.listValidator != null) {
           return widget.listValidator!(val?.$2 ?? []);
         }
         return null;
@@ -446,7 +440,10 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
           decoration: InputDecoration(
             errorStyle: decoration?.errorStyle ?? _defaultErrorStyle,
             errorText: formFieldState.errorText,
+            enabledBorder: InputBorder.none,
+            disabledBorder: InputBorder.none,
             border: InputBorder.none,
+            enabled: false,
             contentPadding: EdgeInsets.zero,
           ),
           child: _OverlayBuilder(
@@ -473,8 +470,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                     formFieldState.validate();
                   }
                 },
-                noResultFoundText:
-                    widget.noResultFoundText ?? 'No result found.',
+                noResultFoundText: widget.noResultFoundText ?? 'No result found.',
                 noResultFoundBuilder: widget.noResultFoundBuilder,
                 items: widget.items ?? [],
                 selectedItemNotifier: selectedItemNotifier,
@@ -504,8 +500,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                 headerPadding: widget.expandedHeaderPadding,
                 itemsListPadding: widget.itemsListPadding,
                 listItemPadding: widget.listItemPadding,
-                searchRequestLoadingIndicator:
-                    widget.searchRequestLoadingIndicator,
+                searchRequestLoadingIndicator: widget.searchRequestLoadingIndicator,
                 dropdownType: widget._dropdownType,
               );
             },
@@ -515,12 +510,8 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                 child: _DropDownField<T>(
                   onTap: showCallback,
                   selectedItemNotifier: selectedItemNotifier,
-                  border: formFieldState.hasError
-                      ? (decoration?.closedErrorBorder ?? _defaultErrorBorder)
-                      : decoration?.closedBorder,
-                  borderRadius: formFieldState.hasError
-                      ? decoration?.closedErrorBorderRadius
-                      : decoration?.closedBorderRadius,
+                  border: formFieldState.hasError ? (decoration?.closedErrorBorder ?? _defaultErrorBorder) : decoration?.closedBorder,
+                  borderRadius: formFieldState.hasError ? decoration?.closedErrorBorderRadius : decoration?.closedBorderRadius,
                   shadow: decoration?.closedShadow,
                   hintStyle: decoration?.hintStyle,
                   headerStyle: decoration?.headerStyle,
